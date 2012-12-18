@@ -26,7 +26,7 @@ class Auth extends CI_Controller {
 		if (!$this->ion_auth->logged_in())
 		{
 			//redirect them to the login page
-			redirect('auth/login', 'refresh');
+			redirect('login', 'refresh');
 		}
 		elseif (!$this->ion_auth->is_admin())
 		{
@@ -77,7 +77,7 @@ class Auth extends CI_Controller {
 				//if the login was un-successful
 				//redirect them back to the login page
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
+				redirect('login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
 		}
 		else
@@ -110,7 +110,7 @@ class Auth extends CI_Controller {
 
 		//redirect them to the login page
 		$this->session->set_flashdata('message', $this->ion_auth->messages());
-		redirect('auth/login', 'refresh');
+		redirect('login', 'refresh');
 	}
 
 	//change password
@@ -122,7 +122,7 @@ class Auth extends CI_Controller {
 
 		if (!$this->ion_auth->logged_in())
 		{
-			redirect('auth/login', 'refresh');
+			redirect('login', 'refresh');
 		}
 
 		$user = $this->ion_auth->user()->row();
@@ -209,7 +209,7 @@ class Auth extends CI_Controller {
 			{
 				//if there were no errors
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
+				redirect("login", 'refresh'); //we should display a confirmation page here instead of the login page
 			}
 			else
 			{
