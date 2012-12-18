@@ -51,7 +51,8 @@ $(window).load(function() {
 	
 	$('.itoggle').click(function(){
 		$(this).toggleClass('itoggle-active');
-		$(this).parent().find('.itoggle-content').toggle(100);
+		$(this).parent().find('.itoggle-content-on').toggle(100);
+		$(this).parent().find('.itoggle-content-off').toggle(100);
 		return false;
 	});
 	

@@ -1,9 +1,10 @@
 @charset "utf-8";
 /* CSS Document */
 
-@media screen and (min-width: 1000px){
+@media screen and (min-width: 900px){
 	body{
-		
+		max-width: 900px;
+		margin: 0px auto;
 	}
 }
 
@@ -767,7 +768,7 @@ li.post-expand{
 	color:#959595;
 }
 
-li.post-edit{
+li.post-edit, a.post-edit{
 	cursor:pointer;
 	background-image:url(../images/lists/list-edit.png);
 	background-repeat:no-repeat;
