@@ -27,7 +27,11 @@
 	{{for sensors}}
 
 	<div class="files-box">
-    	<img class="replace-2x file-image" width="32" src="images/files/psd.png" alt="img">
+    	{{if status==1}}
+    	<img class="fleft" src="images/message-success.png" alt="img">
+    	{{else}}
+    	<img class="fleft" src="images/message-error.png" alt="img">
+    	{{/if}}
         <p class="file-title">{{:title}}</p>
         <div class="clear"></div>
     </div>
