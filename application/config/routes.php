@@ -45,5 +45,9 @@ $route['login'] = "auth/login";
 $route['logout'] = "auth/logout";
 $route['api'] = "api/api_main"; 
 
+$route['api/(:any)/(:num)'] = 'api/$1/item/$2';
+$route['api/(:any)/(:num)/(:any)'] = 'api/$1/$3/$2';
+$route['api/(:any)'] = 'api/$1/items';
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

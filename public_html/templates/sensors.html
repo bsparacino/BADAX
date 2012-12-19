@@ -1,0 +1,20 @@
+<div class="content-box">
+	<div class="content-box-title">
+    	<p class="left-title">Sensors</p>
+        <div class="clear"></div>
+    </div>
+
+	{{for sensors}}
+
+	<div class="files-box">
+    	<img class="replace-2x file-image" width="32" src="images/files/psd.png" alt="img">
+        <p class="file-title">{{:title}}</p>
+        <a href="/#sensors/{{:id}}" class="post-edit">Edit</a>
+        <div class="clear"></div>
+    </div>
+
+    {{if #view.parent.data.length != #index+1}}<div class="files-decoration"></div>{{/if}}    
+
+	{{/for}}
+
+</div>

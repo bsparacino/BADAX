@@ -14,13 +14,18 @@ function loadingAnimation()
 
 function doJSON(type, url, callback, inputData)
 {
+	url = '/api/'+url;
+	var myData = null;
+
 	$.ajax({
 		type: type,
 		url: url,
+		async: false,
 		dataType: 'json',
 		data: inputData,
-		success: (function(data, textStatus, jqXHR) { 	
-			callback(data, jqXHR);
+		success: (function(data, textStatus, jqXHR) { 
+			myData = data;
+			if(callback) callback(data, jqXHR);
 		}),
 		error: (function(jqXHR, textStatus, errorThrown) {
 			var data = $.parseJSON(jqXHR.responseText);
@@ -31,6 +36,8 @@ function doJSON(type, url, callback, inputData)
 			//$('#consoleBox').html('error: '+data.error);
 		})
 	});
+
+	return myData;
 }
 
 // Event handlers
@@ -38,7 +45,12 @@ $.address.init(function(event) {
 
 	container = $('#main_container');
 
-}).change(function(event) {		
+	$('.nav-deploy').click(function(){
+		$('.nav-arrow').toggleClass('change-arrow');
+		$('.nav-items').toggleClass('show-nav');
+	});
+
+}).change(function(event) {
 	//$('#content').hide();
 	//$('select').selectBox('destroy');
 
@@ -49,7 +61,7 @@ $.address.init(function(event) {
 	myHash = $.address.pathNames();
 	var newURL = event.value;
 
-	console.log("myHash:"+myHash+"  newURL:"+newURL);
+	//console.log("myHash:"+myHash+"  newURL:"+newURL);
 
 	//$('#loading').show();
 	//$('body').append(loading);	
@@ -62,35 +74,65 @@ $.address.init(function(event) {
 		$(this).addClass('active');
 	});
 	*/
-	
+
 	//$('#horizontal_nav a').removeClass('active');
 	//$('.nav_'+myHash[0]).addClass('active');
 
 	if(myHash[0] == 'main')
 	{
 		loadingAnimation();
-		
+
 		$.fetcherHTML("templates/dashboard.html", "dashboard", function(){
 
-			/*
-			doJSON('GET','/ajax/dealerships/'+dealership_id, function(dealerships){
-				container.html( $.render.dealerships_campaigns(dealerships[0]) );
-			});
-			*/
+			doJSON('GET','sensors', function(sensors){
 
-			container.html( $.render.dashboard() );
+				var data = {'sensors':sensors};
 
-			$('.itoggle').click(function(){
-				$(this).toggleClass('itoggle-active');
-				$(this).parent().find('.itoggle-content-on').toggle(100);
-				$(this).parent().find('.itoggle-content-off').toggle(100);
-				return false;
+				container.html( $.render.dashboard(data) );
+
+				$('.itoggle').click(function(){
+					$(this).toggleClass('itoggle-active');
+					$(this).parent().find('.itoggle-content-on').toggle(100);
+					$(this).parent().find('.itoggle-content-off').toggle(100);
+					return false;
+				});
+
 			});
 
 		});
 
 	}
-	else if(myHash[0] == 'dealerships')
+	else if(myHash[0] == 'sensors')
+	{
+		loadingAnimation();
+		
+		if(myHash[1])
+		{
+			$.fetcherHTML("templates/sensor_edit.html", "sensor_edit", function(){
+
+				$.when(doJSON('GET','sensors/'+myHash[1]), doJSON('GET','sensorTypes'))
+				.done(function(sensors, sensorTypes){
+
+					var data = {'sensor':sensors[0],'sensorTypes':sensorTypes};
+					container.html( $.render.sensor_edit(data) );
+
+				});
+			});
+		}		
+		else
+		{
+			$.fetcherHTML("templates/sensors.html", "sensors", function(){
+
+				doJSON('GET','sensors', function(sensors){
+					var data = {'sensors':sensors};
+					container.html( $.render.sensors(data) );
+				});
+
+			});
+		}
+
+	}
+	else if(myHash[0] == 'rooms')
 	{
 		loadingAnimation();
 		
@@ -99,7 +141,24 @@ $.address.init(function(event) {
 			
 		}		
 		else
-			dealerships();
+		{
+			container.html('rooms');
+		}
+
+	}
+	else if(myHash[0] == 'users')
+	{
+		loadingAnimation();
+		
+		if(myHash[1])
+		{
+			
+		}		
+		else
+		{
+			container.html('users');
+		}
+
 	}
 	else
 		$.address.value("/main");

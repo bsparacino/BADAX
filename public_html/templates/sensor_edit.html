@@ -1,0 +1,24 @@
+<div class="content-box">
+    <div class="content-box-title">
+        <p class="left-title">Edit Sensor</p>
+        <div class="clear"></div>    
+    </div>
+    <div class="content-box-container">
+
+    	<p class="field-description">Sensor Name</p>
+    	<input type="text" placeholder="Sensor Name" class="field" id="name" value="{{:sensor.title}}">
+
+        <p class="field-description">Type</p>
+        <select id="type" class="field">
+        	{{for sensorTypes}}
+        	<option value="{{:id}}">{{:title}}</option>
+        	{{/for}}
+        </select>
+
+        <p class="field-description">Room</p>
+        <input type="text" placeholder="Sensor Name" class="field" id="name" value="{{:sensor.title}}">        
+
+        <a class="quick-post-button button yellow" href="#">Save</a>
+        <div class="clear"></div>
+    </div>
+</div>

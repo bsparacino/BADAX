@@ -1,9 +1,9 @@
 <div class="content-box">
 	<div class="content-box-title">
-    	<p class="left-title">Toggles and Stuff!</p>
+    	<p class="left-title">Main System</p>
         <div class="clear"></div>
     </div>   
-    <div class="content-box-container"> 
+    <div class="content-box-container">
 
         <div class="content-toggle">
         	<a href="#" class="itoggle itoggle-active"></a> 
@@ -23,39 +23,17 @@
     	<p class="left-title">Sensors</p>
         <div class="clear"></div>
     </div>
-	
+
+	{{for sensors}}
+
 	<div class="files-box">
     	<img class="replace-2x file-image" width="32" src="images/files/psd.png" alt="img">
-        <p class="file-title">Front Door</p>
-        <a href="#" class="post-edit">Edit</a>
+        <p class="file-title">{{:title}}</p>
         <div class="clear"></div>
     </div>
 
-    <div class="files-decoration"></div>
+    {{if #view.parent.data.length != #index+1}}<div class="files-decoration"></div>{{/if}}    
 
-	<div class="files-box">
-    	<img class="replace-2x file-image" width="32" src="images/files/fla.png" alt="img">
-        <p class="file-title">Back Door</p>
-        <a href="#" class="post-edit">Edit</a>
-        <div class="clear"></div>
-    </div>
-
-    <div class="files-decoration"></div>
-
-	<div class="files-box">
-    	<img class="replace-2x file-image" width="32" src="images/files/fla.png" alt="img">
-        <p class="file-title">Bedroom Window 1</p>
-        <a href="#" class="post-edit">Edit</a>
-        <div class="clear"></div>
-    </div>
-
-    <div class="files-decoration"></div>
-
-	<div class="files-box">
-    	<img class="replace-2x file-image" width="32" src="images/files/fla.png" alt="img">
-        <p class="file-title">Bedroom Window 2</p>
-        <a href="#" class="post-edit">Edit</a>
-        <div class="clear"></div>
-    </div>
+	{{/for}}
 
 </div>

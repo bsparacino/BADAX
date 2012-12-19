@@ -535,7 +535,7 @@ body{
 
 /* Quick Post Box */
 
-.quick-posts{
+.quick-posts{ 
 	padding-left:10px;
 	padding-right:10px;
 	padding-bottom:10px;
@@ -548,7 +548,7 @@ body{
 
 .field{
 	font-family: 'Open Sans', sans-serif;
-	color:#aeaeae;
+	/*color:#aeaeae;*/
 	width:92%;
 	background-color:#FFFFFF;
 	border:solid 1px #cccccb;
@@ -562,7 +562,7 @@ body{
 
 .big-field{
 	font-family: 'Open Sans', sans-serif;
-	color:#aeaeae;
+	/*color:#aeaeae;*/
 	width:92%;
 	background-color:#FFFFFF;
 	border:solid 1px #cccccb;
@@ -1027,3 +1027,6 @@ li.post-trash{
 	margin-bottom:10px;
 }
 
+select.field {
+    width: 94.5%;
+}
