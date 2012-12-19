@@ -1,0 +1,19 @@
+<div class="content-box">
+	<div class="content-box-title">
+    	<p class="left-title">Rooms</p>
+        <div class="clear"></div>
+    </div>
+
+	{{for rooms}}
+
+	<div class="files-box">
+        <p class="file-title">{{:title}}</p>
+        <a href="/#rooms/{{:id}}" class="post-edit">Edit</a>
+        <div class="clear"></div>
+    </div>
+
+    {{if #view.parent.data.length != #index+1}}<div class="files-decoration"></div>{{/if}}    
+
+	{{/for}}
+
+</div>

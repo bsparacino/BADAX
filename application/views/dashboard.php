@@ -37,6 +37,7 @@
                 <a class="shadow nav-item"			href="/#sensors">Sensors</a>
                 <a class="shadow nav-item"			href="/#rooms">Rooms</a>
                 <a class="shadow nav-item"			href="/#users">Users</a>
+                <a class="shadow nav-item"			href="/#logs">Logs</a>
                 <a class="shadow last-nav-item"		href="/logout">Logout</a>
             </span>
         </p>

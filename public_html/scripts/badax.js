@@ -138,11 +138,25 @@ $.address.init(function(event) {
 		
 		if(myHash[1])
 		{
-			
+			$.fetcherHTML("templates/room_edit.html", "room_edit", function(){
+
+				doJSON('GET','rooms/'+myHash[1], function(rooms){
+					var data = {'room':rooms[0]};
+					container.html( $.render.room_edit(data) );
+				});
+
+			});
 		}		
 		else
 		{
-			container.html('rooms');
+			$.fetcherHTML("templates/rooms.html", "rooms", function(){
+
+				doJSON('GET','rooms', function(rooms){
+					var data = {'rooms':rooms};
+					container.html( $.render.rooms(data) );
+				});
+
+			});
 		}
 
 	}
@@ -157,6 +171,20 @@ $.address.init(function(event) {
 		else
 		{
 			container.html('users');
+		}
+
+	}
+	else if(myHash[0] == 'logs')
+	{
+		loadingAnimation();
+		
+		if(myHash[1])
+		{
+			
+		}		
+		else
+		{
+			container.html('logs');
 		}
 
 	}
