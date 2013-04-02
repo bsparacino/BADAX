@@ -44,7 +44,7 @@
     </div>
     <div class="clear"></div>
 	<div class="decoration"></div>
-    <p class="breadcrumb"><a href="/">Home</a><em class="bdiv"></em> <a href="/">Home</a> <em class="bdiv"></em>Settings Page</p>
+    <p class="breadcrumb"><a href="/">Home</a></p>
     <div class="decoration"></div>
     
     <div id="main_container"></div>

@@ -82,6 +82,8 @@ $.address.init(function(event) {
 	{
 		loadingAnimation();
 
+		$('.breadcrumb').html('<a href="/">Home</a>');
+
 		$.fetcherHTML("templates/dashboard.html", "dashboard", function(){
 
 			doJSON('GET','sensors', function(sensors){
@@ -105,11 +107,15 @@ $.address.init(function(event) {
 	else if(myHash[0] == 'sensors')
 	{
 		loadingAnimation();
+
+		$('.breadcrumb').html('<a href="/">Home</a><em class="bdiv"></em><a href="/">Sensors</a>');
 		
 		if(myHash[1])
 		{
 			if(myHash[1]=='add')
 			{
+				$('.breadcrumb').html('<a href="/">Home</a><em class="bdiv"></em><a href="/#sensors">Sensors</a><em class="bdiv"></em>Add Sensor');
+
 				$.fetcherHTML("templates/sensor_add.html", "sensor_add", function(){
 
 					$.when(doJSON('GET','sensorTypes'), doJSON('GET','rooms'))
@@ -150,6 +156,8 @@ $.address.init(function(event) {
 						var data = {'sensor':sensors[0],'sensorTypes':sensorTypes,'rooms':rooms};
 						container.html( $.render.sensor_edit(data) );
 						id = sensors[0].id;
+
+						$('.breadcrumb').html('<a href="/">Home</a><em class="bdiv"></em><a href="/#sensors">Sensors</a><em class="bdiv"></em>'+sensors[0].title);
 					});
 
 					$('#sensor_update_btn').click(function(e){
@@ -160,6 +168,7 @@ $.address.init(function(event) {
 							'type': $('#sensor_type').val(),
 							'room': $('#sensor_room').val(),
 							'serial': $('#sensor_serial').val(),
+							'status': $('#sensor_status').val(),
 						};
 
 						doJSON('PUT','sensors/'+id, function(data){
@@ -188,11 +197,15 @@ $.address.init(function(event) {
 	else if(myHash[0] == 'rooms')
 	{
 		loadingAnimation();
+
+		$('.breadcrumb').html('<a href="/">Home</a><em class="bdiv"></em><a href="/#rooms">Rooms</a>');
 		
 		if(myHash[1])
 		{
 			if(myHash[1]=='add')
 			{
+				$('.breadcrumb').html('<a href="/">Home</a><em class="bdiv"></em><a href="/#rooms">Rooms</a><em class="bdiv"></em>Add Room');
+
 				$.fetcherHTML("templates/room_add.html", "room_add", function(){
 
 					container.html( $.render.room_add() );
@@ -224,6 +237,8 @@ $.address.init(function(event) {
 						var data = {'room':rooms[0]};
 						container.html( $.render.room_edit(data) );
 						id = rooms[0].id;
+
+						$('.breadcrumb').html('<a href="/">Home</a><em class="bdiv"></em><a href="/#rooms">Rooms</a><em class="bdiv"></em>'+rooms[0].title);
 					});
 
 					$('#room_update_btn').click(function(e){
@@ -260,6 +275,8 @@ $.address.init(function(event) {
 	else if(myHash[0] == 'users')
 	{
 		loadingAnimation();
+
+		$('.breadcrumb').html('<a href="/">Home</a><em class="bdiv"></em><a href="/#users">Users</a>');
 		
 		if(myHash[1])
 		{
@@ -267,13 +284,22 @@ $.address.init(function(event) {
 		}		
 		else
 		{
-			container.html('users');
+			$.fetcherHTML("templates/users.html", "users", function(){
+
+				doJSON('GET','users', function(users){
+					var data = {'users':users};
+					container.html( $.render.users(data) );
+				});
+
+			});
 		}
 
 	}
 	else if(myHash[0] == 'logs')
 	{
 		loadingAnimation();
+
+		$('.breadcrumb').html('<a href="/">Home</a><em class="bdiv"></em><a href="/#logs">Logs</a>');
 		
 		if(myHash[1])
 		{

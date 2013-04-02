@@ -1,0 +1,20 @@
+<div class="content-box">
+	<div class="content-box-title">
+    	<p class="left-title">Rooms</p>
+    	<a href="#users/add" class="option_button button green" id="user_add">Add Users</a>
+        <div class="clear"></div>
+    </div>
+
+	{{for users}}
+
+	<div class="files-box">
+        <p class="file-title">{{:first_name}} {{:last_name}}<br /><small>{{:email}}</small></p>
+        <a href="/#users/{{:id}}" class="post-edit">Edit</a>
+        <div class="clear"></div>
+    </div>
+
+    {{if #view.parent.data.length != #index+1}}<div class="files-decoration"></div>{{/if}}    
+
+	{{/for}}
+
+</div>

@@ -23,6 +23,7 @@ class Sensor_model extends CI_Model
 			'type' => $inputData['type'],
 			'room' => $inputData['room'],
 			'serial' => $inputData['serial'],
+			'status' => $inputData['status'],
 		);
 
 		$this->db->where('id', $id);
@@ -36,6 +37,7 @@ class Sensor_model extends CI_Model
 			'type' => $inputData['type'],
 			'room' => $inputData['room'],
 			'serial' => $inputData['serial'],
+			'status' => 1,
 		);
 
 		$this->db->insert('sensors', $data);
