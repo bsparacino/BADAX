@@ -11,12 +11,16 @@
         <p class="field-description">Type</p>
         <select id="sensor_type" class="field">
             {{for sensorTypes}}
-            <option value="{{:id}}">{{:title}}</option>
+            <option value="{{:id}}" {{if #parent.parent.data.sensor.sensor_type == title}}selected{{/if}}>{{:title}}</option>
             {{/for}}
         </select>
 
         <p class="field-description">Room</p>
-        <input type="text" placeholder="Sensor Room" class="field" id="sensor_room" value="{{:sensor.room_id}}">
+        <select id="sensor_room" class="field">
+            {{for rooms}}
+            <option value="{{:id}}" {{if #parent.parent.data.sensor.room_id == id}}selected{{/if}}>{{:title}}</option>
+            {{/for}}
+        </select>
 
         <p class="field-description">Sensor Serial Number</p>
         <input type="text" placeholder="Serial Number" class="field" id="sensor_serial" value="{{:sensor.serial}}">

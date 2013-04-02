@@ -112,10 +112,10 @@ $.address.init(function(event) {
 			{
 				$.fetcherHTML("templates/sensor_add.html", "sensor_add", function(){
 
-					$.when(doJSON('GET','sensorTypes'))
-					.done(function(sensorTypes){
+					$.when(doJSON('GET','sensorTypes'), doJSON('GET','rooms'))
+					.done(function(sensorTypes, rooms){
 
-						var data = {'sensor':{},'sensorTypes':sensorTypes};
+						var data = {'sensor':{},'sensorTypes':sensorTypes,'rooms':rooms};
 						container.html( $.render.sensor_add(data) );
 
 					});
@@ -145,10 +145,9 @@ $.address.init(function(event) {
 
 					var id = '';
 
-					$.when(doJSON('GET','sensors/'+myHash[1]), doJSON('GET','sensorTypes'))
-					.done(function(sensors, sensorTypes){
-
-						var data = {'sensor':sensors[0],'sensorTypes':sensorTypes};
+					$.when(doJSON('GET','sensors/'+myHash[1]), doJSON('GET','sensorTypes'), doJSON('GET','rooms'))
+					.done(function(sensors, sensorTypes, rooms){
+						var data = {'sensor':sensors[0],'sensorTypes':sensorTypes,'rooms':rooms};
 						container.html( $.render.sensor_edit(data) );
 						id = sensors[0].id;
 					});
