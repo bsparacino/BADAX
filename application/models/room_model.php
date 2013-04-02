@@ -3,6 +3,28 @@
 class Room_model extends CI_Model
 {
 
+	public function create($inputData = array())
+	{
+		$data = array(
+			'title' => $inputData['title'],
+			'description' => $inputData['description'],
+		);
+
+		$this->db->insert('rooms', $data);
+		return $this->db->insert_id();
+	}
+
+	public function update($id, $inputData = array())
+	{
+		$data = array(
+			'title' => $inputData['title'],
+			'description' => $inputData['description'],
+		);
+
+		$this->db->where('id', $id);
+		return $this->db->update('rooms', $data);
+	}
+
 	public function getRooms($id='')
 	{
 		$this->db->select('id,title,description');
@@ -12,15 +34,6 @@ class Room_model extends CI_Model
 		$rooms = $this->db->get()->result();		
 
 		return $rooms;
-	}
-
-	public function updateRoom($id, $inputData = array())
-	{
-		$campaign = $this->getCampaigns($id);
-		if(empty($campaign)) return 0;
-	
-		$this->db->where('id', $id);
-		return $this->db->update('campaigns', $inputData);
 	}
 
 }

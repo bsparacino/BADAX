@@ -55,4 +55,34 @@ class Rooms extends REST_Controller
         }
     }
 
+    function items_post()
+    {
+        $inputData = $this->post(null, TRUE);
+        $room = $this->room_model->create($inputData);
+
+        if($room)
+        {
+            $this->response($room, 200); // 200 being the HTTP response code
+        }
+        else
+        {
+            $this->response(array('error' => 'Room not created'), 404);
+        }
+    }
+
+    function item_put($id)
+    {
+        $inputData = $this->put(null, TRUE);
+        $room = $this->room_model->update($id, $inputData);
+
+        if($room)
+        {
+            $this->response($room, 200); // 200 being the HTTP response code
+        }
+        else
+        {
+            $this->response(array('error' => 'Room not updated'), 404);
+        }
+    }
+
 }

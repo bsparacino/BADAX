@@ -367,4 +367,10 @@
 }
 .gblue:active {border: 1px solid #434f5a;}
 
+.option_button {
+	float: right;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
 /* The styles for the button groups */

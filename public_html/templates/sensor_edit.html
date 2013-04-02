@@ -5,20 +5,23 @@
     </div>
     <div class="content-box-container">
 
-    	<p class="field-description">Sensor Name</p>
-    	<input type="text" placeholder="Sensor Name" class="field" id="name" value="{{:sensor.title}}">
+        <p class="field-description">Sensor Name</p>
+        <input type="text" placeholder="Sensor Name" class="field" id="sensor_title" value="{{:sensor.title}}">
 
         <p class="field-description">Type</p>
-        <select id="type" class="field">
-        	{{for sensorTypes}}
-        	<option value="{{:id}}">{{:title}}</option>
-        	{{/for}}
+        <select id="sensor_type" class="field">
+            {{for sensorTypes}}
+            <option value="{{:id}}">{{:title}}</option>
+            {{/for}}
         </select>
 
         <p class="field-description">Room</p>
-        <input type="text" placeholder="Sensor Name" class="field" id="name" value="{{:sensor.title}}">        
+        <input type="text" placeholder="Sensor Room" class="field" id="sensor_room" value="{{:sensor.room_id}}">
 
-        <a class="quick-post-button button yellow" href="#">Save</a>
+        <p class="field-description">Sensor Serial Number</p>
+        <input type="text" placeholder="Serial Number" class="field" id="sensor_serial" value="{{:sensor.serial}}">
+
+        <a class="quick-post-button button yellow" href="#" id="sensor_update_btn">Save</a>
         <div class="clear"></div>
     </div>
 </div>

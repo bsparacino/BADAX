@@ -27,13 +27,12 @@ class Sensors extends REST_Controller
             $this->response(NULL, 400);
         }
 
-        $sensors = $this->sensor_model->getSensors($id);
+        $sensors = $this->sensor_model->get($id);
         
         if($sensors)
         {
             $this->response($sensors, 200); // 200 being the HTTP response code
         }
-
         else
         {
             $this->response(array('error' => 'Sensor could not be found'), 404);
@@ -42,16 +41,45 @@ class Sensors extends REST_Controller
 
     function items_get()
     {            
-        $sensors = $this->sensor_model->getSensors();
+        $sensors = $this->sensor_model->get();
         
         if($sensors)
         {
             $this->response($sensors, 200); // 200 being the HTTP response code
         }
-
         else
         {
             $this->response(array('error' => 'No sensors found'), 404);
+        }
+    }
+
+    function items_post()
+    {
+        $inputData = $this->post(null, TRUE);
+        $sensor = $this->sensor_model->create($inputData);
+
+        if($sensor)
+        {
+            $this->response($sensor, 200); // 200 being the HTTP response code
+        }
+        else
+        {
+            $this->response(array('error' => 'Sensor not created'), 404);
+        }
+    }
+
+    function item_put($id)
+    {
+        $inputData = $this->put(null, TRUE);
+        $sensor = $this->sensor_model->update($id, $inputData);
+
+        if($sensor)
+        {
+            $this->response($sensor, 200); // 200 being the HTTP response code
+        }
+        else
+        {
+            $this->response(array('error' => 'Sensor not created'), 404);
         }
     }
 

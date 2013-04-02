@@ -108,16 +108,70 @@ $.address.init(function(event) {
 		
 		if(myHash[1])
 		{
-			$.fetcherHTML("templates/sensor_edit.html", "sensor_edit", function(){
+			if(myHash[1]=='add')
+			{
+				$.fetcherHTML("templates/sensor_add.html", "sensor_add", function(){
 
-				$.when(doJSON('GET','sensors/'+myHash[1]), doJSON('GET','sensorTypes'))
-				.done(function(sensors, sensorTypes){
+					$.when(doJSON('GET','sensorTypes'))
+					.done(function(sensorTypes){
 
-					var data = {'sensor':sensors[0],'sensorTypes':sensorTypes};
-					container.html( $.render.sensor_edit(data) );
+						var data = {'sensor':{},'sensorTypes':sensorTypes};
+						container.html( $.render.sensor_add(data) );
+
+					});
+
+					$('#sensor_save_btn').click(function(e){
+						e.preventDefault();
+
+						var formData = {
+							'title': $('#sensor_title').val(),
+							'type': $('#sensor_type').val(),
+							'room': $('#sensor_room').val(),
+							'serial': $('#sensor_serial').val(),
+						};
+
+						doJSON('POST','sensors', function(data){
+							console.log(data);
+							$.address.value("/sensors");
+						}, formData);
+
+					});
 
 				});
-			});
+			}
+			else
+			{
+				$.fetcherHTML("templates/sensor_edit.html", "sensor_edit", function(){
+
+					var id = '';
+
+					$.when(doJSON('GET','sensors/'+myHash[1]), doJSON('GET','sensorTypes'))
+					.done(function(sensors, sensorTypes){
+
+						var data = {'sensor':sensors[0],'sensorTypes':sensorTypes};
+						container.html( $.render.sensor_edit(data) );
+						id = sensors[0].id;
+					});
+
+					$('#sensor_update_btn').click(function(e){
+						e.preventDefault();						
+
+						var formData = {
+							'title': $('#sensor_title').val(),
+							'type': $('#sensor_type').val(),
+							'room': $('#sensor_room').val(),
+							'serial': $('#sensor_serial').val(),
+						};
+
+						doJSON('PUT','sensors/'+id, function(data){
+							console.log(data);
+							$.address.value("/sensors");
+						}, formData);
+
+					});
+
+				});
+			}
 		}		
 		else
 		{
@@ -138,14 +192,58 @@ $.address.init(function(event) {
 		
 		if(myHash[1])
 		{
-			$.fetcherHTML("templates/room_edit.html", "room_edit", function(){
+			if(myHash[1]=='add')
+			{
+				$.fetcherHTML("templates/room_add.html", "room_add", function(){
 
-				doJSON('GET','rooms/'+myHash[1], function(rooms){
-					var data = {'room':rooms[0]};
-					container.html( $.render.room_edit(data) );
+					container.html( $.render.room_add() );
+
+					$('#room_save_btn').click(function(e){
+						e.preventDefault();
+
+						var formData = {
+							'title': $('#title').val(),
+							'description': $('#description').val(),						
+						};
+
+						doJSON('POST','rooms', function(data){
+							console.log(data);
+							$.address.value("/rooms");
+						}, formData);
+
+					});
+
 				});
+			}
+			else
+			{
+				$.fetcherHTML("templates/room_edit.html", "room_edit", function(){
 
-			});
+					var id = '';
+
+					doJSON('GET','rooms/'+myHash[1], function(rooms){
+						var data = {'room':rooms[0]};
+						container.html( $.render.room_edit(data) );
+						id = rooms[0].id;
+					});
+
+					$('#room_update_btn').click(function(e){
+						e.preventDefault();
+
+						var formData = {
+							'title': $('#title').val(),
+							'description': $('#description').val(),						
+						};
+
+						doJSON('PUT','rooms/'+id, function(data){
+							console.log(data);
+							$.address.value("/rooms");
+						}, formData);
+
+					});
+
+				});
+			}
 		}		
 		else
 		{
