@@ -6,8 +6,13 @@ class User_model extends CI_Model
 	public function create($inputData = array())
 	{
 		$data = array(
-			'title' => $inputData['title'],
-			'description' => $inputData['description'],
+			'first_name' => $inputData['first_name'],
+			'last_name' => $inputData['last_name'],
+			'email' => $inputData['email'],
+			'phone' => $inputData['phone'],
+			'pin' => $inputData['pin'],
+			'active' => 1,
+			'password' => $data['password'] = $this->ion_auth->hash_password($inputData['password']),
 		);
 
 		$this->db->insert('users', $data);
@@ -17,9 +22,15 @@ class User_model extends CI_Model
 	public function update($id, $inputData = array())
 	{
 		$data = array(
-			'title' => $inputData['title'],
-			'description' => $inputData['description'],
+			'first_name' => $inputData['first_name'],
+			'last_name' => $inputData['last_name'],
+			'email' => $inputData['email'],
+			'phone' => $inputData['phone'],
+			'pin' => $inputData['pin'],			
 		);
+
+		if(isset($inputData['password']))
+			$data['password'] = $this->ion_auth->hash_password($inputData['password']);
 
 		$this->db->where('id', $id);
 		return $this->db->update('users', $data);
@@ -27,7 +38,7 @@ class User_model extends CI_Model
 
 	public function get($id='')
 	{
-		$this->db->select('id,username,first_name,last_name,email,phone');
+		$this->db->select('id,username,first_name,last_name,email,phone,pin');
 		$this->db->from('users');
 		if($id) $this->db->where('id', $id);
 		$this->db->order_by('first_name');

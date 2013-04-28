@@ -305,7 +305,70 @@ $.address.init(function(event) {
 		
 		if(myHash[1])
 		{
-			
+			if(myHash[1]=='add')
+			{
+				$('.breadcrumb').html('<a href="/">Home</a><em class="bdiv"></em><a href="/#users">users</a><em class="bdiv"></em>Add User');
+
+				$.fetcherHTML("templates/user_add.html", "user_add", function(){
+
+					container.html( $.render.user_add() );
+
+					$('#user_save_btn').click(function(e){
+						e.preventDefault();
+
+						var formData = {
+							'first_name': $('#first_name').val(),
+							'last_name': $('#last_name').val(),
+							'email': $('#email').val(),
+							'phone': $('#phone').val(),
+							'pin': $('#pin').val(),
+							'password': $('#password').val(),
+						};
+
+						doJSON('POST','users', function(data){
+							console.log(data);
+							$.address.value("/users");
+						}, formData);
+
+					});
+
+				});
+			}
+			else
+			{
+				$.fetcherHTML("templates/user_edit.html", "user_edit", function(){
+
+					var id = '';
+
+					doJSON('GET','users/'+myHash[1], function(users){
+						var data = {'user':users[0]};
+						container.html( $.render.user_edit(data) );
+						id = users[0].id;
+
+						$('.breadcrumb').html('<a href="/">Home</a><em class="bdiv"></em><a href="/#users">Users</a><em class="bdiv"></em>'+users[0].first_name+' '+users[0].last_name);
+					});
+
+					$('#user_update_btn').click(function(e){
+						e.preventDefault();
+
+						var formData = {
+							'first_name': $('#first_name').val(),
+							'last_name': $('#last_name').val(),
+							'email': $('#email').val(),
+							'phone': $('#phone').val(),
+							'pin': $('#pin').val(),
+							'password': $('#password').val(),
+						};
+
+						doJSON('PUT','users/'+id, function(data){
+							console.log(data);
+							$.address.value("/users");
+						}, formData);
+
+					});
+
+				});
+			}
 		}		
 		else
 		{
@@ -315,6 +378,8 @@ $.address.init(function(event) {
 					var data = {'users':users};
 					container.html( $.render.users(data) );
 				});
+
+
 
 			});
 		}

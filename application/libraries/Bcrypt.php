@@ -24,8 +24,9 @@ class Bcrypt {
     return false;
   }
 
-  public function verify($input, $existingHash) {
+  public function verify($input, $existingHash) {    
     $hash = crypt($input, $existingHash);
+    //$hash = substr($hash,0,29);
     return $hash === $existingHash;
   }
 
