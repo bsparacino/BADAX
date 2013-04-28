@@ -86,16 +86,41 @@ $.address.init(function(event) {
 
 		$.fetcherHTML("templates/dashboard.html", "dashboard", function(){
 
-			doJSON('GET','sensors', function(sensors){
-
-				var data = {'sensors':sensors};
+			$.when(doJSON('GET','sensors'), doJSON('GET','system'))
+			.done(function(sensors, system)
+			{
+				var data = {'sensors':sensors,'system':system};				
 
 				container.html( $.render.dashboard(data) );
 
-				$('.itoggle').click(function(){
+				var system_status = data.system.status
+				if(system_status == 1)
+				{
+					$('.system_status').addClass('itoggle-active');
+					$('.system_status').find('.itoggle-content-on').toggle(100);
+				}
+				else
+				{
+					$('.system_status').removeClass('itoggle-active');
+					$('.system_status').find('.itoggle-content-off').toggle(100);
+				}
+
+				$('.itoggle').click(function(e){
+					e.preventDefault();
+
 					$(this).toggleClass('itoggle-active');
 					$(this).parent().find('.itoggle-content-on').toggle(100);
 					$(this).parent().find('.itoggle-content-off').toggle(100);
+
+					var formData = {
+						'status': $(this).hasClass('itoggle-active')?1:0,
+					};
+
+					doJSON('POST','system', function(data){
+						console.log(data);
+						//$.address.value("/sensors");
+					}, formData);
+
 					return false;
 				});
 
