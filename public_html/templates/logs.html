@@ -1,0 +1,19 @@
+<div class="content-box">
+	<div class="content-box-title">
+    	<p class="left-title">Logs</p>
+        <div class="clear"></div>
+    </div>    
+
+	{{for logs}}
+
+    <div class="files-box">
+        <p class="file-title">{{:message}}</p>
+        <a href="/#users/{{:id}}" style="color: #959595; font-size: 12px;">{{:timestamp}}</a>
+        <div class="clear"></div>
+    </div>
+
+    {{if #view.parent.data.length != #index+1}}<div class="files-decoration"></div>{{/if}}    
+
+    {{/for}}
+
+</div>

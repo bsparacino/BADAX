@@ -26,6 +26,11 @@ class Sensor_model extends CI_Model
 			'status' => $inputData['status'],
 		);
 
+		$user = $this->ion_auth->user()->row(); 
+		$CI =& get_instance();
+		$CI->load->model('log_model');
+		$CI->log_model->create($user->first_name.' '.$user->last_name.' updated sensor: '.$inputData['title']);
+
 		$this->db->where('id', $id);
 		return $this->db->update('sensors', $data);
 	}

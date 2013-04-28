@@ -379,8 +379,6 @@ $.address.init(function(event) {
 					container.html( $.render.users(data) );
 				});
 
-
-
 			});
 		}
 
@@ -397,7 +395,14 @@ $.address.init(function(event) {
 		}		
 		else
 		{
-			container.html('logs');
+			$.fetcherHTML("templates/logs.html", "logs", function(){
+
+				doJSON('GET','logs', function(logs){
+					var data = {'logs':logs};
+					container.html( $.render.logs(data) );
+				});
+
+			});
 		}
 
 	}

@@ -10,6 +10,12 @@ class System_model extends CI_Model
 		{
 			$this->db->where('field', 'status');
 			$this->db->update('system', array('value'=>$inputData['status']));
+
+			$user = $this->ion_auth->user()->row();   
+
+			$CI =& get_instance();
+			$CI->load->model('log_model');
+			$CI->log_model->create($user->first_name.' '.$user->last_name.' set system status to '.$inputData['status']);
 		}
 
 		return true;
